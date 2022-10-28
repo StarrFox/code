@@ -1,0 +1,50 @@
+?start: wizwalker_script
+
+wizwalker_script: loop battle move_steps*
+
+
+loop: "[loop" loop_iterations? "]" loop_command+
+
+loop_iterations: number
+loop_command: "do" (move_command | stop_command | npc_command)
+
+move_command: "move" string_with_numbers
+stop_command: "stop"
+npc_command: "npc"
+
+move_steps: "<move" string_with_numbers ">" xy+
+
+
+battle: "[battle]" combat_action+
+
+combat_action: cardname "," combat_target ","? (enchant | maybe_enchant)?
+combat_target: ally_target | enemy_target | notarget | card_target
+
+
+cardname: name
+enchant: cardname
+maybe_enchant: cardname "?"
+
+positional_param: "first" | "second" | "third" | "forth"
+target_param: name | number | positional_param
+
+
+enemy_target: "enemy(" target_param ")"
+ally_target: "ally(" (target_param | "self") ")"
+card_target: "card(" target_param ")"
+notarget: "notarget"
+
+
+name: string
+xy: number "," number
+
+number: SIGNED_NUMBER
+string: WORD
+string_with_numbers: /[\w\d]+/
+
+
+%import common.ESCAPED_STRING
+%import common.WORD
+%import common.SIGNED_NUMBER
+%import common.WS
+%ignore WS

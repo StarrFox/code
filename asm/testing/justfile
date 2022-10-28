@@ -1,0 +1,12 @@
+build:
+  nasm -f elf64 hello.asm
+
+link: build
+  gcc hello.o -g -o hello -m64 -fno-pie -no-pie
+
+run: link
+  ./hello
+
+clean:
+  rm hello hello.o
+
