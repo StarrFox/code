@@ -1,10 +1,10 @@
 	SECTION .data		; data section
 msg:	db "Hello World",10	; the string to print, 10=cr
 len:	equ $-msg		; "$" means "here"
-				; len is a value, not an address
+						; len is a value, not an address
 
-	SECTION .text		; code section
-        global main		; make label available to linker 
+	SECTION .text	; code section
+    global main		; make label available to linker 
 main:				; standard  gcc  entry point
 	
 	mov	edx,len		; arg3, length of string to print
