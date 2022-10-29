@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-zig-cache/*
-.vscode/*
+zig-cache/
+.vscode/
