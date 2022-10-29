@@ -1,0 +1,11 @@
+type Person:
+    string name
+    u4 age
+
+    func rename(string new_name):
+        self.name = new_name
+
+
+func main():
+    me = Person("joe", 30)
+    me.rename("jim")

@@ -1,0 +1,18 @@
+core ideas:
+    no null/none/void?
+    fast
+    simple
+    prefer verbose
+
+
+repo management tool:
+    tool dep github:StarrFox/regex -> add my regex library as a dependency
+    tool dep remove StarrFox/regex -> remove it
+
+    tool run -> runs the current repo's main
+    tool run taskname -> runs a user-defined task within the repo's context
+
+    tool test -> runs the current repo's tests
+
+    tool init package -> makes a new package repo
+    tool init bin -> makes a new binary repo
