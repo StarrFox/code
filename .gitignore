@@ -130,3 +130,4 @@ dmypy.json
 
 zig-cache/
 .vscode/
+.direnv/
