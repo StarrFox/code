@@ -132,4 +132,5 @@ zig-cache/
 .vscode/
 .direnv/
 result/
+result
 libimhex.so.1.24.3
