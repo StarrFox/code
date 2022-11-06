@@ -1,0 +1,15 @@
+build:
+    nim cpp --app:lib -d:release --threads:on imhex_plugin_test.nim
+
+install: build
+    cp libimhex_plugin_test.so ~/.local/share/imhex/plugins/libimhex_plugin_test.hexplug
+
+imhex: install
+    imhex
+
+test:
+    nim cpp --run test.nim
+
+clean:
+    rm libimhex_plugin_test.so
+    rm test

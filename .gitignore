@@ -131,3 +131,5 @@ dmypy.json
 zig-cache/
 .vscode/
 .direnv/
+result/
+libimhex.so.1.24.3
