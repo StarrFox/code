@@ -4,8 +4,6 @@ import std/options
 import discord_rpc
 import cppstl
 
-{.link: "libimhex.so.1.24.3"}
-
 const hex = "imhex/lib/libimhex/include/hex"
 
 type
@@ -30,13 +28,13 @@ proc updateActivity(details, state: string) =
   )
 
 proc getPluginName*(): cstring {.exportc,dynlib.} = 
-  return cstring"Test"
+  return cstring"DiscordRPC"
 
 proc getPluginAuthor*(): cstring {.exportc,dynlib.} =
   return cstring"StarrFox"
 
 proc getPluginDescription*(): cstring {.exportc,dynlib.} =
-  return cstring"Description"
+  return cstring"Adds discord rpc to imhex"
 
 proc getCompatibleVersion*(): cstring {.exportc,dynlib.} =
   return cstring"1.24.3"
@@ -45,8 +43,6 @@ proc setImGuiContext*(ctx: ptr): void {.exportc,dynlib.} =
   discard
 
 proc initializePlugin*(): void {.exportc,dynlib.} =
-  echo "plugin loaded"
-
   discord = create(DiscordRPC)
   discord[] = newDiscordRPC(1039016357754323015)
 
@@ -55,24 +51,11 @@ proc initializePlugin*(): void {.exportc,dynlib.} =
   updateActivity("details", "idling")
 
   proc onProviderChanged(old: ptr Provider, nonold: ptr Provider): void =
-    let oldAddress = cast[ByteAddress](old)
-
-    let oldProviderName =
-      if oldAddress != 0:
-        $old[].getName()
-      else:
-        "[null]"
-
-    let newProviderName = nonold[].getName()
-
-    echo fmt"onProviderChanged: old: {oldProviderName} new: {newProviderName}"
-
-    updateActivity("onProviderChanged", fmt"editing {newProviderName}")
+    let name = nonold[].getName()
+    updateActivity("onProviderChanged", fmt"editing {name}")
 
   proc onProviderOpened(opened: ptr Provider): void =
     let name = opened[].getName()
-    echo fmt"onProviderOpened: {name}"
-
     updateActivity("onProviderOpened", fmt"editing {name}")
 
   subscribe[EventProviderOpened](cast[ptr EventProviderOpened](onProviderOpened))
