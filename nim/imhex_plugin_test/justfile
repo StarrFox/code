@@ -2,7 +2,7 @@ build:
     nimble build -d:release
 
 install: build
-    cp imhex_plugin_test.so ~/.local/share/imhex/plugins/libimhex_plugin_test.hexplug
+    cp imhex_plugin_test.hexplug ~/.local/share/imhex/plugins/imhex_plugin_test.hexplug
 
 imhex: install
     imhex
