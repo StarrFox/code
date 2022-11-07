@@ -1,0 +1,3 @@
+[submodule "nim/imhex_plugin_test/src/imhex"]
+	path = nim/imhex_plugin_test/src/imhex
+	url = https://github.com/WerWolv/ImHex
