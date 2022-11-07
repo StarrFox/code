@@ -133,3 +133,4 @@ zig-cache/
 .direnv/
 result/
 result
+*.hexplug
