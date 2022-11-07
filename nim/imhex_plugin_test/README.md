@@ -1,1 +1,2 @@
-I didnt get all the licenses of the submodules 
+# submodule command
+git submodule update --init --recursive
