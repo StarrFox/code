@@ -2,10 +2,11 @@ const std = @import("std");
 const expect = @import("std").testing.expect;
 
 pub fn main() void {
-    //const message = "Hello, World!";
-    // const array = [_]u8{1, 2, 3};
+    // const message = "Hello, World!";
+    // std.debug.print("{s}", .{message});
+    const array = [_]u8{1, 2, 3};
 
-    // std.debug.print("{any} with length {any}", .{array, array.len});
+    std.debug.print("{d} with length {d}\n", .{array, array.len});
 
     const string = "test";
 
