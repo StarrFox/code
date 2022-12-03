@@ -14,17 +14,16 @@ pub fn main() anyerror!void {
         }
 
         var enemy: u8 = switch (line[0]) {
-            // I couldn't figure out how to make it accept "A" => 1
-            65 => 1,
-            66 => 2,
-            67 => 3,
+            'A' => 1,
+            'B' => 2,
+            'C' => 3,
             else => unreachable,
         };
 
         var self: u8 = switch (line[2]) {
-            88 => 1,
-            89 => 2,
-            90 => 3,
+            'X' => 1,
+            'Y' => 2,
+            'Z' => 3,
             else => unreachable,
         };
 
