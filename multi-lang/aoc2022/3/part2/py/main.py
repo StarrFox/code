@@ -1,6 +1,6 @@
 import string
 import pprint
-import collections
+
 
 def chunked(thing, n):
     start = 0
@@ -21,6 +21,7 @@ with open("input") as input_:
 
 
 priority_sum = 0
+
 
 for chunk in chunked(lines, 3):
     lookup = {}
@@ -52,5 +53,6 @@ for chunk in chunked(lines, 3):
             priority = get_priority(key)
             priority_sum += priority
             break
+
 
 print(priority_sum)
