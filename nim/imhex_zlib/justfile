@@ -1,0 +1,8 @@
+build:
+    nimble build -d:release --debug
+
+install: build
+    cp imhex_zlib.hexplug ~/.local/share/imhex/plugins/imhex_zlib.hexplug
+
+imhex: install
+    imhex

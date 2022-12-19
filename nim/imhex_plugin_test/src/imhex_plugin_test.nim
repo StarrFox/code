@@ -37,7 +37,7 @@ proc getPluginDescription*(): cstring {.exportc,dynlib.} =
   return cstring"Adds discord rpc to imhex"
 
 proc getCompatibleVersion*(): cstring {.exportc,dynlib.} =
-  return cstring"1.24.3"
+  return cstring"1.25.0"
 
 proc setImGuiContext*(ctx: ptr): void {.exportc,dynlib.} =
   discard
