@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "wiz-proxy"
+version = "0.1.0"
+description = "A proxy for wiz"
+authors = ["StarrFox <starrfox6312@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+trio = "^0.22.0"
+wizmsg = {git = "https://github.com/wizspoil/wizmsg"}
+
+[tool.poetry.group.tools.dependencies]
+pycryptodome = "^3.16.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
