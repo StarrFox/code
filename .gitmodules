@@ -4,3 +4,6 @@
 [submodule "zig/imhex_zlib/src/imhex"]
 	path = zig/imhex_zlib/src/imhex
 	url = https://github.com/WerWolv/ImHex
+[submodule "nim/imhex_zlib/src/imhex"]
+	path = nim/imhex_zlib/src/imhex
+	url = https://github.com/WerWolv/ImHex
