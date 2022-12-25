@@ -5,7 +5,7 @@ fn fib(x: u64) u64 {
     return fib(x - 1) + fib(x - 2);
 }
 
-pub fn main() void {
+pub fn main() anyerror!void {
     const stdout = std.io.getStdOut().writer();
-    stdout.print("{d}", .{fib(47)}) catch return;
+    try stdout.print("{d}", .{fib(47)});
 }

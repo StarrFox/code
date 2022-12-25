@@ -1,0 +1,16 @@
+benchmark: build
+    hyperfine ./build/fibc ./build/fibzig
+
+build:
+    mkdir build || true
+
+    # c
+    gcc -O3 -o build/fibc main.c
+
+    # zig
+    zig build-exe -O ReleaseFast main.zig
+    mv main build/fibzig
+
+clean:
+    rm -rf build
+    rm -rf zig-cache
