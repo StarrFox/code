@@ -5,15 +5,16 @@ const pl = "imhex/lib/external/pattern_language/lib/include/pl"
 
 type
     FunctionParameterCount {.header: pl & "/api.hpp", importcpp: "pl::api::FunctionParameterCount"} = object
-    FunctionCallback*[T] {.header: pl & "/api.hpp", importcpp: "pl::api::FunctionCallback"} = object
+    FunctionCallback {.header: pl & "/api.hpp", importcpp: "pl::api::FunctionCallback"} = object
+    CppVariant[T] {.importcpp: "std::variant<'*0>"} = object 
 
 # std::function<return type>(?)
-proc initFunctionCallback*[T](): FunctionCallback {.constructor, importcpp: "pl::api::FunctionCallback<'*0>()".}
-proc initFunctionParameterCountExactly(howmany: cint): FunctionParameterCount {.constructor, importcpp: "pl::api::FunctionParameterCount::exactly(@)".}
+#proc initFunctionCallback(): FunctionCallback {.constructor, importcpp: "pl::api::FunctionCallback<'*0>()".}
+proc initFunctionParameterCountExactly(howmany: cint): FunctionParameterCount {.importcpp: "pl::api::FunctionParameterCount::exactly(@)".}
 
 # https://github.com/WerWolv/ImHex/blob/603ff9256c1f98b7fa08c3d2ce9007f7a102917a/lib/libimhex/include/hex/api/content_registry.hpp#L138
 # void addFunction(const pl::api::FunctionCallback &func);
-proc addFunction(namespace: CppVector[CppString], name: CppString, parameterCount: FunctionParameterCount, callback: FunctionCallback): void {.header: hex & "/api/content_registry.hpp", importcpp: "hex::ContentRegistry::PatternLanguage::addFunction(@)".}
+proc addFunction(namespace: CppVector[CppString], name: CppString, parameterCount: FunctionParameterCount, callback: proc (x: var Evaluator, y: CppVector[Literal])): void {.header: hex & "/api/content_registry.hpp", importcpp: "hex::ContentRegistry::PatternLanguage::addFunction(@)".}
 
 proc getPluginName*(): cstring {.exportc,dynlib.} = 
   return cstring"ImhexZlib"
@@ -30,10 +31,10 @@ proc getCompatibleVersion*(): cstring {.exportc,dynlib.} =
 proc setImGuiContext*(ctx: ptr): void {.exportc,dynlib.} =
   discard
 
-proc initializePlugin*(): void {.exportc,dynlib.} =
-    proc decompress(ctx: ptr, params: CppVector): cint =
-        return 1
+proc decompress(ctx: ptr, params: CppVector): cint =
+    return 1
 
+proc initializePlugin*(): void {.exportc,dynlib.} =
     # zlib::decompress
     var namespaceVec = initCppVector[CppString]()
     var namespace = initCppString("zlib")
@@ -44,4 +45,4 @@ proc initializePlugin*(): void {.exportc,dynlib.} =
     # min, max
     var parameterCount = initFunctionParameterCountExactly(2)
 
-    addFunction(namespaceVec, functionName, parameterCount, cast[FunctionCallback[cint]](decompress))
+    addFunction(namespaceVec, functionName, parameterCount, decompress)
