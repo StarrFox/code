@@ -1,5 +1,5 @@
 benchmark: build
-    hyperfine ./build/fibc ./build/fibzig
+    hyperfine ./build/fibc ./build/fibclang ./build/fibzig ./build/fibrust ./build/fibnewzig ./build/fibgo
 
 build:
     mkdir build || true
@@ -7,9 +7,25 @@ build:
     # c
     gcc -O3 -o build/fibc main.c
 
+    # c with clang
+    clang -O3 -o build/fibclang main.c
+
     # zig
     zig build-exe -O ReleaseFast main.zig
     mv main build/fibzig
+
+    # zig 0.10
+    ~/.zvm/bin/zig build-exe -O ReleaseFast main.zig
+    mv main build/fibnewzig
+    rm main.o
+
+    # rust
+    rustc -C opt-level=3 -C panic=abort main.rs
+    mv main build/fibrust
+
+    # go
+    go build main.go
+    mv main build/fibgo
 
 clean:
     rm -rf build

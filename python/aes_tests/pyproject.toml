@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "aes-tests"
+version = "0.1.0"
+description = ""
+authors = ["StarrFox <starrfox6312@gmail.com>"]
+readme = "README.md"
+packages = [{include = "aes_tests"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pycryptodome = "^3.16.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

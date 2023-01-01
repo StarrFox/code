@@ -135,3 +135,5 @@ zig-cache/
 result/
 result
 *.hexplug
+.idea/
+*.db
