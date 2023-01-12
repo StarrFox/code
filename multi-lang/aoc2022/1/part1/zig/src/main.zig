@@ -10,16 +10,16 @@ pub fn main() anyerror!void {
 
     while (lines.next()) |line| {
         if (line.len == 0) {
+            if (current >= highest) {
+                    highest = current;
+                }
+
             current = 0;
             continue;
         }
 
         var parsed = try std.fmt.parseInt(u32, line, 0);
         current += parsed;
-
-        if (current >= highest) {
-            highest = current;
-        }
     }
 
     std.log.info("Highest = {d}", .{highest});
