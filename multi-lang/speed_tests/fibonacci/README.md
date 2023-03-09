@@ -13,3 +13,8 @@ current results:
     2.11 ± 0.03 times faster than './build/fibzig'
     2.93 ± 0.03 times faster than './build/fibgo'
 ```
+
+notes:
+  cpp and c produce the exact same binaries: https://godbolt.org/z/6dTo7Ga4n
+  
+  I'm not sure how to get julia to produce a binary

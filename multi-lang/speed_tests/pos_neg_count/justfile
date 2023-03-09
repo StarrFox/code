@@ -1,0 +1,11 @@
+bench: build
+    hyperfine -N ./build/c
+
+build:
+    mkdir build || true
+
+    # c
+    gcc -O3 -o build/c main.c
+
+clean:
+    rm -rf build

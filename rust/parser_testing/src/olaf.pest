@@ -1,0 +1,11 @@
+expression = { add_expr }
+
+add_expr = { mul_expr ~ (("+" | "-") ~ mul_expr)* }
+mul_expr = { value ~ (("*" | "/") ~ value)* }
+value    = { number | ("(" ~ expression ~ ")") }
+
+number = { digit+ }
+
+digit = { '0'..'9' }
+
+WHITESPACE = _{ " " | NEWLINE }

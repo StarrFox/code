@@ -1,5 +1,5 @@
 benchmark: build
-    hyperfine ./build/fibc ./build/fibclang ./build/fibzig ./build/fibrust ./build/fibnewzig ./build/fibgo
+    hyperfine ./build/fibc ./build/fibclang ./build/fibzig ./build/fibrust ./build/fibnewzig ./build/fibgo .build/fibcpp
 
 build:
     mkdir build || true
@@ -26,6 +26,9 @@ build:
     # go
     go build main.go
     mv main build/fibgo
+
+    # cpp
+    gcc -O3 -o build/fibcpp main.cpp
 
 clean:
     rm -rf build

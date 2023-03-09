@@ -1,0 +1,29 @@
+statements = { SOI ~ (let_statement)+ ~ EOI }
+let_statement = { "let" ~ var_name ~ assignment ~ expression ~ statement_end }
+
+expression = { operations | literal }
+operations = { operation ~ (op ~ operand)* }
+operation = { operand ~ op ~ operand }
+operand = {(var_name | literal)}
+
+literal = _{ number_literal | string_literal }
+
+op = {(add_op | sub_op | div_op | mul_op)}
+add_op = { "+" }
+sub_op = { "-" }
+div_op = { "/" }
+mul_op = { "*" }
+
+// add 1_000_000 later
+number_literal = { digit+ }
+string_literal = { "\"" ~ (letter | space)+ ~ "\"" }
+
+var_name = { (letter | "_" )+ }
+
+statement_end = _{ ";" }
+digit = _{ '0'..'9' }
+letter = _{ ('a'..'z' | 'A'..'Z') }
+space = _{ " " }
+assignment = { "=" }
+
+WHITESPACE = _{ space | NEWLINE }
