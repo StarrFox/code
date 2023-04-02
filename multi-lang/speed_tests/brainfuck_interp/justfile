@@ -1,0 +1,21 @@
+bench: build
+    time ./build/bfcodon >/dev/null
+    time ./build/bfllvmnim >/dev/null
+    time ./build/bfgccnim >/dev/null
+
+
+build:
+    mkdir build || true
+
+    # codon
+    codon build --release -o build/bfcodon main.py
+
+    # nim llvm
+    nim c --cc:clang --passC:-march=native -d:danger --out:build/bfllvmnim main.nim
+
+    # nim gcc
+    nim c --cc:gcc --passC:-march=native -d:danger --out:build/bfgccnim main.nim
+
+
+clean:
+    rm -rf build

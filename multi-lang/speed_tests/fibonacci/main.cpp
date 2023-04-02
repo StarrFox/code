@@ -6,5 +6,5 @@ static uint64_t fib(uint64_t n) {
 }
 
 int main() {
-  return fib(47) != 2971215073;
+  return fib(47) != 2971215073ull;
 }

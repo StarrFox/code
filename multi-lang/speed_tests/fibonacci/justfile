@@ -1,26 +1,21 @@
 benchmark: build
-    hyperfine ./build/fibc ./build/fibclang ./build/fibzig ./build/fibrust ./build/fibnewzig ./build/fibgo .build/fibcpp
+    hyperfine .build/fibnim ./build/fibc ./build/fibclang ./build/fibzig ./build/fibrust ./build/fibgo .build/fibcpp .build/fibcodon
 
 build:
     mkdir build || true
 
     # c
-    gcc -O3 -o build/fibc main.c
+    gcc -O3 -march=native -o build/fibc main.c
 
     # c with clang
-    clang -O3 -o build/fibclang main.c
+    clang -O3 -march=native -o build/fibclang main.c
 
     # zig
     zig build-exe -O ReleaseFast main.zig
     mv main build/fibzig
 
-    # zig 0.10
-    ~/.zvm/bin/zig build-exe -O ReleaseFast main.zig
-    mv main build/fibnewzig
-    rm main.o
-
     # rust
-    rustc -C opt-level=3 -C panic=abort main.rs
+    rustc -C opt-level=3 -C panic=abort -C target-cpu=native main.rs
     mv main build/fibrust
 
     # go
@@ -28,7 +23,13 @@ build:
     mv main build/fibgo
 
     # cpp
-    gcc -O3 -o build/fibcpp main.cpp
+    gcc -O3 -march=native -o build/fibcpp main.cpp
+
+    # codon
+    codon build --release -o build/fibcodon main.py
+
+    # nim
+    nim c --cc:gcc -d:danger --mm:arc --passC:-march=native --out:build/fibnim main.nim
 
 clean:
     rm -rf build
