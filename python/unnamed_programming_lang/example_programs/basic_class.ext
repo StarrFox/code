@@ -1,11 +1,10 @@
 type Person:
-    string name
-    u4 age
+    name: string
+    age: u4
 
-    func rename(string new_name):
+    fn rename(new_name: string):
         self.name = new_name
 
-
-func main():
-    me = Person("joe", 30)
+fn main() u4:
+    let mut me = Person{name="joe", age=30}
     me.rename("jim")

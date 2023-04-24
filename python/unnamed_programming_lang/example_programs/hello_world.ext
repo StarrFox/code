@@ -1,2 +1,2 @@
-func main():
-    echo("Hello world")
+fn main() int:
+    print("Hello world")

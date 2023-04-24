@@ -1,0 +1,49 @@
+?start: _NEWLINE* line+ _NEWLINE?
+
+?line: expression _NEWLINE? | statement _NEWLINE?
+
+?expression: literal | block | if_expression | function_call | math_expression | identifier
+?statement: assignment | reassignment | function | return
+
+assignment: "let" "mut"? identifier type_def? "=" expression
+
+reassignment: identifier reassignment_operator expression
+!reassignment_operator: "=" | "+=" | "-=" 
+
+return: "return" expression
+
+math_expression: expression math_operation expression
+!math_operation: "+" | "-" | "*" | "/"
+
+block: "{" _NEWLINE _INDENT line+ _DEDENT "}"
+
+if_expression: "if" expression _indent_block_start line+ _DEDENT if_expression_elif* if_expression_else?
+if_expression_elif: "elif" expression _indent_block_start line+ _DEDENT
+if_expression_else: "else" _indent_block_start line+ _DEDENT
+
+function: "fn" identifier "(" function_args? ")" identifier? _indent_block_start line+ _DEDENT
+// TODO: figure out how to allow for newlines between args
+function_args: identifier type_def? ("," identifier type_def?)*
+
+function_call: identifier "(" function_call_args? ")"
+function_call_args: identifier ("," identifier)*
+
+literal: bool | number | string
+!bool: "true" | "false"
+number: /\d+/
+string: "\"" /[^"]+/? "\""
+
+identifier: /\w\w*/
+type_def: ":" identifier
+
+_indent_block_start: ":" _NEWLINE _INDENT
+
+%declare _INDENT _DEDENT
+%import common.WS_INLINE
+
+%ignore WS_INLINE
+%ignore COMMENT
+
+COMMENT: /\s*/ "//" /[^\n]/*
+_NEWLINE: /(\r?\n[\t ]*)+/
+//_NEWLINE: /(\r?\n)+/

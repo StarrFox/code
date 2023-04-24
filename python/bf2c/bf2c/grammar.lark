@@ -1,0 +1,16 @@
+start: (instruction | loop)+
+
+loop: "[" (instruction | loop)+ "]"
+instruction: data_right | data_left | inc_data | dec_data | write | read
+
+!data_right: ">"+
+!data_left: "<"+
+!inc_data: "+"+
+!dec_data: "-"+
+!write: "."+
+!read: ","+
+
+
+%import common.WS_INLINE
+%ignore WS_INLINE
+%ignore /[^\[\]<>\+-\.,]/

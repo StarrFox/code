@@ -1,0 +1,6 @@
+run: build
+    ./build/main
+
+build:
+    mkdir build || true
+    gcc src/main.c -o build/main 

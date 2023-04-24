@@ -28,7 +28,6 @@ def execute(program: str):
     jumps = create_jump_table(program)
 
     while inst_pointer < end:
-        
         instruction = program[inst_pointer]
 
         match instruction:

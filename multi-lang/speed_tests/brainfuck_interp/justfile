@@ -1,20 +1,43 @@
 bench: build
-    time ./build/bfcodon >/dev/null
-    time ./build/bfllvmnim >/dev/null
-    time ./build/bfgccnim >/dev/null
-
+    #time ./build/bfcodon >/dev/null
+    #time ./build/bfllvmnim >/dev/null
+    #time ./build/bfgccnim >/dev/null
+    #time ./build/bfllvmnim2 >/dev/null
+    #time ./build/bfgccnim2 >/dev/null
+    #time ./build/bfllvmnim2array >/dev/null
+    time ./build/bfgccnim2array >/dev/null
+    time ./build/bfgccnim3 >/dev/null
+    time ./build/bfgccnim4 >/dev/null
 
 build:
     mkdir build || true
 
     # codon
-    codon build --release -o build/bfcodon main.py
+    #codon build --release -o build/bfcodon main.py
 
     # nim llvm
-    nim c --cc:clang --passC:-march=native -d:danger --out:build/bfllvmnim main.nim
+    #nim c --cc:clang --passC:-march=native -d:danger --out:build/bfllvmnim main.nim
 
     # nim gcc
-    nim c --cc:gcc --passC:-march=native -d:danger --out:build/bfgccnim main.nim
+    #nim c --cc:gcc --passC:-march=native -d:danger --out:build/bfgccnim main.nim
+
+    # nim2 llvm
+    #nim c --cc:clang --passC:-march=native -d:danger --out:build/bfllvmnim2 nim2.nim
+
+    # nim2 gcc
+    #nim c --cc:gcc --passC:-march=native -d:danger --out:build/bfgccnim2 nim2.nim
+
+    # nim2array llvm
+    #nim c --cc:clang --passC:-march=native -d:danger --out:build/bfllvmnim2array nim2array.nim
+
+    # nim2array gcc
+    #nim c --cc:gcc --passC:-march=native -d:danger --mm:arc --out:build/bfgccnim2array nim2array.nim
+
+    # gcc nim3
+    nim c --cc:gcc --passC:-march=native -d:danger --mm:arc --out:build/bfgccnim3 nim3.nim
+
+    # gcc nim4
+    nim c --cc:gcc --passC:-march=native -d:danger --mm:arc --out:build/bfgccnim4 nim4.nim
 
 
 clean:

@@ -1,75 +1,111 @@
 use std::fs;
 use std::io;
+use std::io::StdoutLock;
 use std::io::Write;
-use std::{collections::HashMap, ops::Index};
 
-fn create_jump_table(program: &str) -> HashMap<usize, usize> {
-    let mut table: HashMap<usize, usize> = HashMap::new();
-    let mut loop_starts: Vec<usize> = Vec::new();
+#[derive(Debug)]
+enum Instruction {
+    AdvanceCell(usize),
+    DevanceCell(usize),
+    IncrementData(usize),
+    DecrementData(usize),
+    WriteIo,
+    ReadIo,
+    Loop(Vec<Instruction>),
+}
 
-    for (position, character) in program.chars().enumerate() {
-        if character == '[' {
-            loop_starts.push(position);
-        } else if character == ']' {
-            let start = loop_starts.pop();
+struct Vm {
+    source: String
+}
 
-            match start {
-                Some(start) => {
-                    let end = position;
+impl Vm {
+    fn parse(&self) -> Vec<Instruction> {
+        let mut instructions: Vec<Instruction> = Vec::new();
 
-                    table.insert(start, end);
-                    table.insert(end, start);
+        let mut chain = 0;
+        let mut last_char = char::default();
+
+        let mut stacks: Vec<Vec<Instruction>> = Vec::new();
+
+        for character in self.source.chars() {
+            match character {
+                '>' | '<' | '+' | '-' => {
+                    if character == last_char {
+                        instructions.last().unwrap()
+                    }
+
+                    if character != chain_char {
+                        let instruction = match character {
+                            '>' => Instruction::AdvanceCell(chain),
+                            '<' => Instruction::DevanceCell(chain),
+                            '+' => Instruction::IncrementData(chain),
+                            '-' => Instruction::DecrementData(chain),
+                            _ => unreachable!() 
+                        };
+
+                        // this pushes to instructions if there is no loop stack
+                        stacks.last_mut().unwrap_or(&mut instructions).push(instruction);
+
+                        chain = 1;
+                        chain_char = character;
+                    } else {
+                        chain += 1;
+                    }
                 }
-                None => panic!("Missing [")
+                '.' => {
+                    stacks.last_mut().unwrap_or(&mut instructions).push(Instruction::WriteIo);
+                }
+                ',' => {
+                    stacks.last_mut().unwrap_or(&mut instructions).push(Instruction::ReadIo);
+                }
+                '[' => stacks.push(Vec::new()),
+                ']' => instructions.push(Instruction::Loop(stacks.pop().unwrap())),
+                // anything else is a comment
+                _ => ()
+            }
+        }
+
+        instructions
+    }
+
+    fn execute_instructions(
+        &self,
+        instructions: Vec<Instruction>,
+        cells: &mut [usize],
+        cell_position: &mut usize,
+        stdout: &mut StdoutLock
+    ) {
+        for instruction in instructions {
+            match instruction {
+                Instruction::AdvanceCell(amount) => *cell_position += amount,
+                Instruction::DevanceCell(amount) => *cell_position -= amount,
+                Instruction::IncrementData(amount) => cells[*cell_position] += amount,
+                Instruction::DecrementData(amount) => cells[*cell_position] -= amount,
+                Instruction::WriteIo => drop(stdout.write(&[cells[*cell_position] as u8])),
+                Instruction::ReadIo => todo!("who even uses this"),
+                Instruction::Loop(instructions) => self.execute_instructions(instructions, cells, cell_position, stdout)
             }
         }
     }
 
-    table
-}
+    pub fn execute(&self) {
+        let instructions = self.parse();
 
-fn execute(program: &str) {
-    let mut tape = [0; 30000];
+        dbg!(instructions);
+        return;
 
-    let mut tape_position = 0;
-    let mut program_position = 0;
-    let jump_table = create_jump_table(program);
+        let mut cells = [0; 30000];
+        let mut cell_position = 0;
 
-    // you have to use bytes to index
-    let program_bytes = program.as_bytes();
+        let mut stdout = io::stdout().lock();
 
-    let mut stdout = io::stdout().lock();
-
-    while program_position < program.len() {
-        let instruction = program_bytes.index(program_position);
-
-        match instruction {
-            b'>' => tape_position += 1,
-            b'<' => tape_position -= 1,
-            b'+' => tape[tape_position] += 1,
-            b'-' => tape[tape_position] -= 1,
-            b'.' => drop(stdout.write(&[tape[tape_position]])),
-            b',' => todo!("add ,"),
-            b'[' => {
-                if tape[tape_position] == 0 {
-                    program_position = *jump_table.get(&program_position).unwrap();
-                }
-            },
-            b']' => {
-                if tape[tape_position] != 0 {
-                    program_position = *jump_table.get(&program_position).unwrap();
-                }
-            },
-            // everything else is a comment
-            _ => ()
-        }
-
-        program_position += 1;
+        self.execute_instructions(instructions, &mut cells, &mut cell_position, &mut stdout)
     }
 }
 
 fn main() {
-    let program = fs::read_to_string("program.bf").unwrap();
+    //let program = fs::read_to_string("program.bf").unwrap();
 
-    execute(program.as_str());
+    let vm = Vm{source: "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.".to_string()};
+    vm.execute();
 }
