@@ -7,3 +7,6 @@
 [submodule "nim/imhex_zlib/src/imhex"]
 	path = nim/imhex_zlib/src/imhex
 	url = https://github.com/WerWolv/ImHex
+[submodule "rust/cxx_testing/external/cpr"]
+	path = rust/cxx_testing/external/cpr
+	url = https://github.com/libcpr/cpr
