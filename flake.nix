@@ -17,6 +17,7 @@
           packages = with pkgs; [
             python3
             zig
+            rustup
             cargo
             gcc
             nim
