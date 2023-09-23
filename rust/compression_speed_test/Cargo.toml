@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 zstd = "0.12.4"
 snap = "1.1.0"
-lz4 = "1.23.1"
+lz4 = "1.24.0"
