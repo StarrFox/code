@@ -2,14 +2,14 @@
 
 [[package]]
 name = "starrlib"
-version = "0.1.0"
+version = "0.1.1"
 description = "common starr utils"
 category = "main"
 optional = false
 python-versions = ">=3.11,<4.0"
 files = [
-    {file = "starrlib-0.1.0-py3-none-any.whl", hash = "sha256:9185d1497504b6ca1f5c226002cd49018b7831130126824dcebd136d3c0cfcc2"},
-    {file = "starrlib-0.1.0.tar.gz", hash = "sha256:0b5013c0467963860d4d240550a92df2ae0b8f9d518bfc476d2fbeaf9069877c"},
+    {file = "starrlib-0.1.1-py3-none-any.whl", hash = "sha256:346da94af5e97347d7e794617eb018611e7cc112c8cd56abbdd3654c39f016e7"},
+    {file = "starrlib-0.1.1.tar.gz", hash = "sha256:2ff0cdcbcc187811d0669ba259539fe64fda37f1be953491116afc09a5d2bb3c"},
 ]
 
 [metadata]
