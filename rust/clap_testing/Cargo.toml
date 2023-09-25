@@ -1,13 +1,9 @@
 [package]
-name = "compression_speed_test"
+name = "clap_testing"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-zstd = "0.12.4"
-snap = "1.1.0"
-lz4 = "1.24.0"
-glob = "0.3.1"
-lz4_flex = {version = "0.11.1", features = ["std", "frame"]}
+clap = { version = "4.4.4", features = ["derive"] }
