@@ -17,8 +17,11 @@
           packages = with pkgs; [
             python3
             zig
+
+            # rust stuff
             rustup
             cargo
+
             gcc
             nim
             elixir
