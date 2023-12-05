@@ -11,7 +11,7 @@
         pname = "basic";
         version = "0.1.0";
         src = ./.;
-        buildInputs = with pkgs; [
+        nativeBuildInputs = with pkgs; [
           zig
         ];
         buildPhase = ''
