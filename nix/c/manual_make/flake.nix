@@ -16,6 +16,7 @@
           pname = "test";
           version = "0.1.0";
           src = ./.;
+          makeFlags = ["DESTDIR=$(out)"];
         };
 
         devShells.default = pkgs.mkShell {
