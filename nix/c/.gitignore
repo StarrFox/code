@@ -1,0 +1,3 @@
+.direnv
+*.log
+autom4te.cache

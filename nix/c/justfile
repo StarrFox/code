@@ -1,0 +1,7 @@
+build: clean
+    autoreconf -i
+    mkdir build
+    cd build && ../configure && make
+
+clean:
+    rm -rf build

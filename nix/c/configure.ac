@@ -1,0 +1,8 @@
+AC_PREREQ([2.71])
+AC_INIT([shell], [0.1.0])
+AM_INIT_AUTOMAKE
+AC_CONFIG_SRCDIR([src/main.c])
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_FILES([Makefile src/Makefile])
+AC_PROG_CC
+AC_OUTPUT
