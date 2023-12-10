@@ -1,0 +1,18 @@
+def spliter(data) = (
+    data
+    |> .split(" ")
+)
+
+"1 1" |> spliter |> print
+
+(
+    "2 2"
+    |> .split(" ")
+    |> print
+)
+
+def add(a: int, b: int) -> int = (
+    a + b
+)
+
+(100, 100) |*> add |> print
