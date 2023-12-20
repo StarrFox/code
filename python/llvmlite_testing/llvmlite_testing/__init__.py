@@ -1,3 +1,5 @@
+# example from https://github.com/numba/llvmlite/tree/main/examples
+
 from ctypes import CFUNCTYPE, c_double
 
 import llvmlite.binding as llvm
