@@ -11,7 +11,7 @@ trio = "^0.22.0"
 wizmsg = {git = "https://github.com/wizspoil/wizmsg"}
 
 [tool.poetry.group.tools.dependencies]
-pycryptodome = "^3.16.0"
+pycryptodome = "^3.19.1"
 
 [build-system]
 requires = ["poetry-core"]
