@@ -40,6 +40,7 @@
             xorg.libXinerama.dev
             xorg.libXcursor.dev
             xorg.libXi.dev
+            
           ];
         };
 
