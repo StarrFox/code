@@ -29,13 +29,15 @@
           version = projectCargo.package.version;
           nativeBuildInputs = with pkgs; [
             cmake
+            pkg-config
+          ];
+          buildInputs = with pkgs; [
             raylib
             xorg.libX11.dev
             xorg.libXrandr.dev
             xorg.libXinerama.dev
             xorg.libXcursor.dev
             xorg.libXi.dev
-            pkg-config
           ];
           cargoLock = {
             lockFile = ./Cargo.lock;
