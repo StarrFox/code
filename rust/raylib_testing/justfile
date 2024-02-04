@@ -1,0 +1,13 @@
+default: run
+
+build:
+    cargo build
+
+build-release:
+    cargo build --release
+
+run: build
+    steam-run ./target/debug/raylib_testing
+
+run-release: build-release
+    steam-run ./target/release/raylib_testing
