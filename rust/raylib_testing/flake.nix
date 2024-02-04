@@ -1,17 +1,13 @@
 {
-  description = "raylib testing";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts/";
     nix-systems.url = "github:nix-systems/default";
-    naersk.url = "github:nix-community/naersk";
   };
 
   outputs = inputs @ {
     flake-parts,
     nix-systems,
-    naersk,
     nixpkgs,
     ...
   }:
@@ -24,11 +20,10 @@
         self',
         ...
       }: let
-        naersk' = pkgs.callPackage naersk {};
         projectCargo = builtins.fromTOML (builtins.readFile ./Cargo.toml);
-        packageName = "raylib_testing";
+        packageName = projectCargo.package.name;
       in {
-        packages.${packageName} = naersk'.buildPackage {
+        packages.${packageName} = pkgs.rustPlatform.buildRustPackage {
           name = packageName;
           src = ./.;
           version = projectCargo.package.version;
@@ -40,8 +35,11 @@
             xorg.libXinerama.dev
             xorg.libXcursor.dev
             xorg.libXi.dev
-            
+            pkg-config
           ];
+          cargoLock = {
+            lockFile = ./Cargo.lock;
+          };
         };
 
         packages.default = self'.packages.${packageName};
