@@ -1,0 +1,10 @@
+[project]
+name = "tortoise-testing"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "orjson>=3.10.18",
+    "tortoise-orm>=0.25.1",
+]
