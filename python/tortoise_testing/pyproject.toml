@@ -5,6 +5,6 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "orjson>=3.10.18",
+    "orjson>=3.11.6",
     "tortoise-orm>=0.25.1",
 ]
