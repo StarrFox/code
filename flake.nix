@@ -16,6 +16,8 @@
           name = "code";
           packages = with pkgs; [
             python3
+            uv
+
             zig
 
             # rust stuff
